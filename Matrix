@@ -1,0 +1,131 @@
+import random
+
+def matrix_generate(n,m):
+    """Receives the number of rows n and number of columns m
+    and generates a matrix of size n-by-m with entries choosen as
+    random values in the range (0,10).
+    The return matrix is stored as a list-of-lists"""
+    
+    a = [[ random.randint(0,10) for i in range(m)] for j in range(n)]
+    
+    return a
+    
+def matrix_check(a):
+    """Given a matrix a check if each row has the same elements.
+    If corrent return True, else return False."""
+    
+    n=len(a)
+    m=len(a[0])
+    for i in range(1,n):
+        if len(a[i]) != m:
+            return False
+    return True
+
+def matrix_display(a):
+    """Display the entries of a matrix as shown in the slides
+    This function has no return. It simply prints a 
+    formatted view of the matrix. """
+    
+    n=len(a)
+    m=len(a[0])
+    out=""
+    for i in range(n):
+        out += "["
+        for j in range(m):
+            out += f"{a[i][j]:4}"
+        out +=" ]\n"
+    print(out)
+
+def matrix_sum(a,b):
+    """ Given two matrices a and b, check the size 
+    of the matrices.
+    If the sizes match, calculate the sum of the matrices 
+    and return the resulting matrix.
+    """
+    c=[]
+    for i in range(len(a)):
+        row=[0]*len(a[i])
+        c.append(row)
+        
+    for i in range(len(a)):
+        for j in range(len(a[i])):
+            c[i][j]=a[i][j]+b[i][j]
+    
+    return c
+
+def matrix_transpose(a):
+    """ Given a matrix A of size nxm, 
+    return the resulting matrix A^T of size mxn.
+    """
+    transposed_matrix=[[a[j][i] for j in range(len(a))] for i in range(len(a[0]))]
+    
+    return transposed_matrix
+ 
+def matrix_is_symmetric(a):
+    """Return True if the matrix is symmetric, 
+    and False otherwise.
+    The matrix has to be square (n-by-n), 
+    and a[i][j] has to be same as a[j][i]
+    """
+    answer=""
+    for i in range(0,len(a)):
+        for j in range(i+1,len(a)):
+            if a[i][j]==a[j][i]:
+                answer=True
+            else:
+                answer=False
+    return answer
+
+if "__main__" == __name__:
+    #Let's create two 2-by-3 matrices  
+    n = 2
+    m = 3
+    A = matrix_generate(n,m)
+    B = matrix_generate(n,m)
+
+    #Display the matrices
+    print("Matrix A")
+    matrix_display(A)
+    print("Matrix B")
+    matrix_display(B)
+    
+    #Check the size of the matrices
+    print("Is A a proper matrix?")
+    print(matrix_check(A))
+    print("Is B a proper matrix?")
+    print(matrix_check(B))
+    
+    ######################################################
+    #Display the sum of the matrices
+    
+    ######################################################
+    #Uncomment these lines after implementing matrix_sum
+    print("Matrix C = A+B")
+    C = matrix_sum(A,B)
+    matrix_display(C)
+
+    ######################################################
+    #Uncomment these lines after implementing matrix_transpose
+    print("Matrix A's transpose is:")
+    C = matrix_transpose(A)
+    matrix_display(C)
+    
+    ######################################################
+    #Uncomment the two print lines below after implementing 
+    #matrix_is_symmmetric function
+    
+    #Let create a 3x3 matrix
+    print("\nLet's create a 3-by-3 matrix and check if it is symmetric")
+    n= 3
+    A = matrix_generate(n,n)
+    matrix_display(A)
+    print("Is this a symmetric matrix?")
+    print(matrix_is_symmetric(A))
+    
+    #Let's make the matrix symmetric
+    for i in range(0,n):
+       for j in range(i+1,n):
+          A[i][j] = A[j][i]
+    matrix_display(A)
+    print("Is this a symmetric matrix?")
+    print(matrix_is_symmetric(A)) 
